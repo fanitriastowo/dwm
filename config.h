@@ -53,12 +53,12 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	*/
-	/* class    instance      title       	 tags mask    isfloating   isterminal  noswallow  monitor */
-	{ "Gimp",     NULL,       NULL,       	    1 << 8,       0,           0,         0,        -1 },
-	{ "St",       NULL,       NULL,       	    0,            0,           1,         0,        -1 },
+	/* class    instance      title					 tags mask    isfloating   isterminal  noswallow  monitor */
+	{ "Gimp",     NULL,       NULL,							0,						0,           0,         0,        -1 },
+	{ "St",       NULL,       NULL,							0,            0,           1,         0,        -1 },
 	{ NULL,       NULL,       "Event Tester",   0,            0,           0,         1,        -1 },
-	{ NULL,      "spterm",    NULL,       	    SPTAG(0),     1,           1,         0,        -1 },
-	{ NULL,      "spcalc",    NULL,       	    SPTAG(1),     1,           1,         0,        -1 },
+	{ NULL,      "spterm",    NULL,							SPTAG(0),     1,           1,         0,        -1 },
+	{ NULL,      "spcalc",    NULL,							SPTAG(1),     1,           1,         0,        -1 },
 };
 
 /* layout(s) */
@@ -69,10 +69,10 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 #include "vanitygaps.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
- 	{ "[M]",	monocle },	/* Default: All windows on top of eachother */
+	{ "[M]",	monocle },	/* Default: All windows on top of eachother */
 	{ "H[]",	deck },			/* Master on left, slaves in monocle-like mode on right */
 
- 	{ "[]=",	tile },			/* Master on left, slaves on right */
+	{ "[]=",	tile },			/* Master on left, slaves on right */
 	{ "TTT",	bstack },		/* Master on top, slaves on bottom */
 
 	{ "[@]",	spiral },		/* Fibonacci spiral */
@@ -129,8 +129,9 @@ static Key keys[] = {
 	TAGKEYS(			XK_7,		6)
 	TAGKEYS(			XK_8,		7)
 	TAGKEYS(			XK_9,		8)
-    { MODKEY,			XK_0,		view,		{.ui = ~0 } },
-    { MODKEY|ShiftMask,		XK_0,		tag,		{.ui = ~0 } },
+	TAGKEYS(			XK_0,		9)
+    /* { MODKEY,			XK_0,		view,		{.ui = ~0 } }, */
+    /* { MODKEY|ShiftMask,		XK_0,		tag,		{.ui = ~0 } }, */
     { MODKEY,			XK_minus,	spawn,		SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)") },
     { MODKEY|ShiftMask,		XK_minus,	spawn,		SHCMD("pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)") },
     { MODKEY,			XK_equal,	spawn,		SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
@@ -143,11 +144,11 @@ static Key keys[] = {
 	{ MODKEY,			XK_q,		killclient,	{0} },
 	{ MODKEY|ShiftMask,		XK_q,		spawn,		SHCMD("sysact") },
 	{ MODKEY,			XK_w,		spawn,		SHCMD("$BROWSER") },
-	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("st -e sudo nmtui") },
-	{ MODKEY,			XK_e,		spawn,		SHCMD("st -e neomutt ; pkill -RTMIN+12 dwmblocks; rmdir ~/.abook") },
-	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("st -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") },
-	{ MODKEY,			XK_r,		spawn,		SHCMD("st -e lf") },
-	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("st -e htop") },
+	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("brave") },
+	{ MODKEY,			XK_r,		spawn,		SHCMD("st -e ranger") },
+	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("postman") },
+	{ MODKEY,			XK_e,		spawn,		SHCMD("st -e gotop") },
+	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("st -e htop") },
 	{ MODKEY,			XK_t,		setlayout,	{.v = &layouts[0]} }, /* tile */
 	{ MODKEY|ShiftMask,		XK_t,		setlayout,	{.v = &layouts[1]} }, /* bstack */
 	{ MODKEY,			XK_y,		setlayout,	{.v = &layouts[2]} }, /* spiral */
@@ -167,8 +168,8 @@ static Key keys[] = {
 	{ MODKEY,			XK_backslash,		view,		{0} },
 	/* { MODKEY|ShiftMask,		XK_backslash,		spawn,		SHCMD("") }, */
 
-	/* { MODKEY,			XK_a,		togglegaps,	{0} }, */
-	{ MODKEY,     XK_a,      tabmode,        {-1} },
+	{ MODKEY,			XK_a,		togglegaps,	{0} },
+	/* { MODKEY,     XK_a,      tabmode,        {-1} }, */
 	{ MODKEY|ShiftMask,		XK_a,		defaultgaps,	{0} },
 	{ MODKEY,			XK_s,		togglesticky,	{0} },
 	/* { MODKEY|ShiftMask,		XK_s,		spawn,		SHCMD("") }, */
@@ -180,7 +181,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_g,		shifttag,	{ .i = -1 } },
 	{ MODKEY,			XK_h,		setmfact,	{.f = -0.05} },
 	/* J and K are automatically bound above in STACKEYS */
-	{ MODKEY,			XK_l,		setmfact,      	{.f = +0.05} },
+	{ MODKEY,			XK_l,		setmfact,				{.f = +0.05} },
 	{ MODKEY,			XK_semicolon,	shiftview,	{ .i = 1 } },
 	{ MODKEY|ShiftMask,		XK_semicolon,	shifttag,	{ .i = 1 } },
 	{ MODKEY,			XK_apostrophe,	togglescratch,	{.ui = 1} },
@@ -225,10 +226,10 @@ static Key keys[] = {
 	{ MODKEY,			XK_F5,		xrdb,		{.v = NULL } },
 	{ MODKEY,			XK_F6,		spawn,		SHCMD("torwrap") },
 	{ MODKEY,			XK_F7,		spawn,		SHCMD("td-toggle") },
-	{ MODKEY,			XK_F8,		spawn,		SHCMD("mailsync") },
+	/* { MODKEY,			XK_F8,		spawn,		SHCMD("mailsync") }, */
 	{ MODKEY,			XK_F9,		spawn,		SHCMD("dmenumount") },
 	{ MODKEY,			XK_F10,		spawn,		SHCMD("dmenuumount") },
-	{ MODKEY,			XK_F11,	  spawn,		SHCMD("killall screenkey || screenkey &") },
+	{ MODKEY,			XK_F11,		spawn,		SHCMD("killall screenkey || screenkey &") },
 	{ MODKEY,			XK_F12,		xrdb,		{.v = NULL } },
 	{ MODKEY,			XK_space,	zoom,		{0} },
 	{ MODKEY|ShiftMask,		XK_space,	togglefloating,	{0} },
